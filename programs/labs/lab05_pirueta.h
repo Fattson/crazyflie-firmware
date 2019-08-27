@@ -58,37 +58,18 @@ void actuate(float F_t, float T_Phi, float T_theta, float T_psi, float * w1, flo
     M4 = control_motor(*w4);
 }
 
+void stop_all(float * w1, float * w2, float * w3, float * w4){
+    actuate(0, 0, 0, 0, w1, w2, w3, w4);
+}
+
 int main(){
     float w1, w2, w3, w4;
 
     wait_ms(2000);
     
-    actuate(0.2, 0, 0, 0, &w1, &w2, &w3, &w4);
-    wait_ms(2000);
-    actuate(0, 0, 0, 0, &w1, &w2, &w3, &w4);
-    wait_ms(5000);
+    actuate(2*m*g, 0, -0.005, 0, &w1, &w2, &w3, &w4);
+    wait_ms(200);
 
-    actuate(0, 0.005, 0, 0, &w1, &w2, &w3, &w4);
-    wait_ms(2000);
-    actuate(0, -0.005, 0, 0, &w1, &w2, &w3, &w4);
-    wait_ms(2000);
-    actuate(0, 0, 0, 0, &w1, &w2, &w3, &w4);
-    wait_ms(5000);
-
-    actuate(0, 0, 0.005, 0, &w1, &w2, &w3, &w4);
-    wait_ms(2000);
-    actuate(0, 0, -0.005, 0, &w1, &w2, &w3, &w4);
-    wait_ms(2000);
-    actuate(0, 0, 0, 0, &w1, &w2, &w3, &w4);
-    wait_ms(5000);
-
-    actuate(0, 0, 0, 0.001, &w1, &w2, &w3, &w4);
-    wait_ms(2000);
-    actuate(0, 0, 0, -0.001, &w1, &w2, &w3, &w4);
-    wait_ms(2000);
-    actuate(0, 0, 0, 0, &w1, &w2, &w3, &w4);
-    wait_ms(5000);
-
-    actuate(0, 0, 0, 0, &w1, &w2, &w3, &w4);
-
+    stop_all(&w1, &w2, &w3, &w4);
+    
 }
