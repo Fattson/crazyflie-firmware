@@ -9,5 +9,7 @@
 #include "drivers/mpu9250.h"
 #include "drivers/vl53l0x.h"
 #include "drivers/pmw3901.h"
+#include "modules/mixer.h"
+#include "modules/leds.h"
 
 #endif
