@@ -72,7 +72,7 @@ class Leds {
 
         void disarmed() {
             ledM1_G(ON);
-            ledM1_G(ON);
+            ledM2_G(ON);
 
             ledM1_R(OFF);
             ledM2_R(OFF);

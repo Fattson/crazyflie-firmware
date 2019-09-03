@@ -8,5 +8,6 @@
 
 // Lab programs
 //#include "programs/labs/lab01.h"
-#include "programs/labs/lab04.h"
+//#include "programs/labs/lab04.h"
 //#include "programs/labs/lab05_classes.h"
+#include "programs/labs/lab06.h"
