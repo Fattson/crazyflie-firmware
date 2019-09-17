@@ -17,9 +17,9 @@ int main()
     while(true)
     {
         imu.read();
-        serial.printf("Accel [m/s^2]: %6.2f %6.2f %6.2f\n",imu.ax,imu.ay,imu.az);
-        serial.printf("Gyro  [rad/s]: %6.2f %6.2f %6.2f\n",imu.gx,imu.gy,imu.gz);
-        serial.printf("\n");
+        serial.printf("Accel [m/s^2]: %6.2f %6.2f %6.2f\n\r",imu.ax,imu.ay,imu.az);
+        serial.printf("Gyro  [rad/s]: %6.2f %6.2f %6.2f\n\r",imu.gx,imu.gy,imu.gz);
+        serial.printf("\n\r");
         wait(0.1);
     }
 }
