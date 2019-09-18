@@ -11,5 +11,6 @@
 #include "drivers/pmw3901.h"
 #include "modules/mixer.h"
 #include "modules/leds.h"
+#include "modules/attitude_estimator.hpp"
 
 #endif

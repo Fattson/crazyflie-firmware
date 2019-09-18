@@ -1,26 +1,21 @@
 #include "mbed.h"
-#include "attitude_estimator.h"
+#include "attitude_estimator.hpp"
 
-float A_phi;
-float A_theta;
-float A_ksi;
-float V_p;
-float V_q;
-float V_r;
-
-AttitudeEstimador::AttitudeEstimator() : imu(IMU_SDA, IMU_SCL){
-    A_phi = 0;
-    A_theta = 0;
-    A_ksi = 0;
-    V_p = 0;
-    V_q = 0;
-    V_r = 0;
+AttitudeEstimator::AttitudeEstimator() : imu(IMU_SDA, IMU_SCL){
+    phi = 0;
+    theta = 0;
+    psi = 0;
+    p = 0;
+    q = 0;
+    r = 0;
 }
 
 void AttitudeEstimator::init(){
-
+    imu.init();
 }
 
-void AttitudeEStimator::estimate(){
-
+void AttitudeEstimator::estimate(){
+    imu.read();
+    float phi_a = atan2(-imu.ay, -imu.az);
+    phi = phi_a;
 }

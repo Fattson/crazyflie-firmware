@@ -1,5 +1,5 @@
-#ifndef attitude_estimator_h
-#define attitude_estimator_h
+#ifndef attitude_estimator_hpp
+#define attitude_estimator_hpp
 
 #include "mbed.h"
 #include "src/utils/pin_names.h"
