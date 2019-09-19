@@ -1,6 +1,15 @@
 #include "mbed.h"
 #include "attitude_estimator.hpp"
 
+int get_sign(float value){
+    if (value < 0){
+        return -1;
+    }
+    else{
+        return 1;
+    }
+}
+
 AttitudeEstimator::AttitudeEstimator() : imu(IMU_SDA, IMU_SCL){
     phi = 0;
     theta = 0;
@@ -12,13 +21,46 @@ AttitudeEstimator::AttitudeEstimator() : imu(IMU_SDA, IMU_SCL){
 
 void AttitudeEstimator::init(){
     imu.init();
+
+    for (int i=0; i<500; i++){
+        imu.read();
+        p_bias += imu.gx;
+        q_bias += imu.gy;
+        r_bias += imu.gz;
+        wait(dt); 
+    }
+    p_bias = p_bias/500;
+    q_bias = q_bias/500;
+    r_bias = r_bias/500;
 }
 
 void AttitudeEstimator::estimate(){
+     
     imu.read();
-    //float p = imu.gx;
-    //float phi_g = phi_g +  p*dt;
-    //phi = phi_g;
-    float phi_a = atan2(-imu.ay, -imu.az);
-    phi = (1-alpha)*phi_a + alpha*phi;
+
+    // Desconto de erro
+    p = imu.gx - p_bias;
+    q = imu.gy - q_bias;
+    r = imu.gz - r_bias;
+
+    // Estimador giroscópio
+    // phi_g = phi + p*dt;
+    // theta_g = theta + q*dt;
+    // psi_g = psi + r*dt;
+
+    phi_g = phi + ( p + sin(phi)*tan(theta)*q + cos(phi)*tan(theta)*r )*dt;
+    theta_g = theta + ( cos(theta)*q -sin(theta)*r )*dt;
+    psi_g = psi + ( (sin(phi)/cos(theta))*q + (cos(phi)/cos(theta))*r )*dt;
+
+    // Estimador acelerômetro
+    phi_a = atan2(-imu.ay, -imu.az);
+    theta_a = atan2(imu.ax, (- get_sign(imu.az)*sqrt(pow(imu.ay,2) + pow(imu.az,2))));
+
+    // Estimador complementar
+    phi = (1 - alpha)*phi_g + alpha*phi_a;
+    theta = (1 - alpha)*theta_g + alpha*theta_a;
+    psi = psi_g;
+    
 }
+
+

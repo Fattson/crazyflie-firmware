@@ -18,6 +18,10 @@ class AttitudeEstimator {
 
     private:
         MPU9250 imu;
+        float p_bias, q_bias, r_bias;
+        float phi_a, theta_a;
+        float phi_g, theta_g, psi_g;
+
 };
 
 #endif

@@ -16,6 +16,6 @@ const float p2 = 1.211e-12f;        // Coef. calib. pwm
 const float kl = 1.927e-08;         // Const. sustentação
 const float kd = 1.4538e-10;        // Const. de arrasto
 const float dt = 2e-3;              // Intervalo de tempo
-const float alpha = 0.01;            // Fator de suavização filtro passa-baixo
+const float alpha = 0.01;            // Fator de suavização filtro 
 
 #endif
