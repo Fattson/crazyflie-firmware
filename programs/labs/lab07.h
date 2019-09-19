@@ -5,7 +5,6 @@
 USBSerial serial;
 
 char command;
-float dt = 2e-3;
 bool flag;
 
 AttitudeEstimator att_est;
