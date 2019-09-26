@@ -35,29 +35,29 @@ void Mixer::arm(){
         leds.armed();
         armed = true;
 
-        M1.period(1.0/1567.98);
-        M1 = 0.1;
-        wait_ms(500);
-        stop_all();
+        // M1.period(1.0/1567.98);
+        // M1 = 0.1;
+        // wait_ms(500);
+        // stop_all();
 
-        M2.period(1.0/880.0);
-        M2 = 0.1;
-        wait_ms(500);
-        stop_all(); 
+        // M2.period(1.0/880.0);
+        // M2 = 0.1;
+        // wait_ms(500);
+        // stop_all(); 
 
-        M3.period(1.0/523.25);
-        M3 = 0.1;
-        wait_ms(500);
-        stop_all();
+        // M3.period(1.0/523.25);
+        // M3 = 0.1;
+        // wait_ms(500);
+        // stop_all();
 
-        M4.period(1.0/1567.98);
-        M4 = 0.1;
-        wait_ms(300);
-        stop_all();
+        // M4.period(1.0/1567.98);
+        // M4 = 0.1;
+        // wait_ms(300);
+        // stop_all();
 
-        M1.period(1.0/587.33);
-        M4 = 0.1;
-        wait_ms(1000);
+        // M1.period(1.0/587.33);
+        // M4 = 0.1;
+        // wait_ms(1000);
         stop_all();
         
         wait_ms(1000);
@@ -67,24 +67,24 @@ void Mixer::arm(){
 void Mixer::disarm(){
     
 
-    M4.period(1.0/3135.96);
-    M4 = 0.1;
-    wait_ms(300);
-    stop_all();
+    // M4.period(1.0/3135.96);
+    // M4 = 0.1;
+    // wait_ms(300);
+    // stop_all();
 
-    M3.period(1.0/2349.32);
-    M3 = 0.1;
-    wait_ms(300);
-    stop_all();
+    // M3.period(1.0/2349.32);
+    // M3 = 0.1;
+    // wait_ms(300);
+    // stop_all();
 
-    M2.period(1.0/1567.98);
-    M2 = 0.1;
-    wait_ms(300);
-    stop_all(); 
+    // M2.period(1.0/1567.98);
+    // M2 = 0.1;
+    // wait_ms(300);
+    // stop_all(); 
 
-    M1.period(1.0/1760.0);
-    M1 = 0.1;
-    wait_ms(800);
+    // M1.period(1.0/1760.0);
+    // M1 = 0.1;
+    // wait_ms(800);
     stop_all();
 
     wait_ms(1000);

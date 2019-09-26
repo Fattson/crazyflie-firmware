@@ -12,5 +12,6 @@
 #include "modules/mixer.h"
 #include "modules/leds.h"
 #include "modules/attitude_estimator.hpp"
+#include "modules/attitude_controller.hpp"
 
 #endif

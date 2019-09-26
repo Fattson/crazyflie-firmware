@@ -17,5 +17,7 @@ const float kl = 1.927e-08;         // Const. sustentação
 const float kd = 1.4538e-10;        // Const. de arrasto
 const float dt = 2e-3;              // Intervalo de tempo
 const float alpha = 0.01;            // Fator de suavização filtro 
+const float Kp = 5;
+const float Kd = 25;
 
 #endif

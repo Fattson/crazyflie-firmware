@@ -1,5 +1,5 @@
 #include "mbed.h"
-#include "attitude_estimator.h"
+#include "attitude_estimator.hpp"
 
 int AttitudeEstimator::sgn(double v) {
     if (v < 0) return -1;
