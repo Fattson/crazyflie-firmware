@@ -10,8 +10,10 @@ class AttitudeEstimator {
     public:
         AttitudeEstimator();
 
+
         void init();
         void estimate();
+        int sgn(double v);
 
         float phi, theta, psi;
         float p, q, r;
@@ -21,7 +23,6 @@ class AttitudeEstimator {
         float p_bias, q_bias, r_bias;
         float phi_a, theta_a;
         float phi_g, theta_g, psi_g;
-
 };
 
 #endif

@@ -1,13 +1,10 @@
 #include "mbed.h"
-#include "attitude_estimator.hpp"
+#include "attitude_estimator.h"
 
-int get_sign(float value){
-    if (value < 0){
-        return -1;
-    }
-    else{
-        return 1;
-    }
+int AttitudeEstimator::sgn(double v) {
+    if (v < 0) return -1;
+    if (v > 0) return 1;
+    return 0;
 }
 
 AttitudeEstimator::AttitudeEstimator() : imu(IMU_SDA, IMU_SCL){
@@ -43,18 +40,13 @@ void AttitudeEstimator::estimate(){
     q = imu.gy - q_bias;
     r = imu.gz - r_bias;
 
-    // Estimador giroscópio
-    // phi_g = phi + p*dt;
-    // theta_g = theta + q*dt;
-    // psi_g = psi + r*dt;
-
     phi_g = phi + ( p + sin(phi)*tan(theta)*q + cos(phi)*tan(theta)*r )*dt;
     theta_g = theta + ( cos(theta)*q -sin(theta)*r )*dt;
     psi_g = psi + ( (sin(phi)/cos(theta))*q + (cos(phi)/cos(theta))*r )*dt;
 
     // Estimador acelerômetro
     phi_a = atan2(-imu.ay, -imu.az);
-    theta_a = atan2(imu.ax, (- get_sign(imu.az)*sqrt(pow(imu.ay,2) + pow(imu.az,2))));
+    theta_a = atan2(imu.ax, (-sgn(imu.az)*sqrt(pow(imu.ay,2) + pow(imu.az,2))));
 
     // Estimador complementar
     phi = (1 - alpha)*phi_g + alpha*phi_a;
