@@ -1,5 +1,6 @@
 #ifndef parameters_h
 #define parameters_h
+#include <cmath>
 
 // Physical constants
 const float pi = 3.1416f;
@@ -17,7 +18,12 @@ const float kl = 1.927e-08;         // Const. sustentação
 const float kd = 1.4538e-10;        // Const. de arrasto
 const float dt = 2e-3;              // Intervalo de tempo
 const float alpha = 0.01;            // Fator de suavização filtro 
-const float Kp = 5;
-const float Kd = 25;
+
+const float OS = 0.005;
+const float Ts = 0.3;
+const float zeta = abs(log(OS))/(sqrt(pow(log(OS), 2) + pow(pi ,2)));
+const float wn = 4/(zeta*Ts);
+const float Kp = wn/(2*zeta);
+const float Kd = 2*zeta*wn;
 
 #endif

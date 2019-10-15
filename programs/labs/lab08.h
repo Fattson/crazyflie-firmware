@@ -25,7 +25,7 @@ int contador= 0;
 int main (){
 
     // Set references
-    float f_t = 0.9*m*g;
+    float f_t = 1*m*g;
     float phi_r = 0.0f;
     float theta_r = 0.0f;
     float psi_r = 0.0f;
@@ -39,8 +39,9 @@ int main (){
     // Arm motors and run controller while stable
     mixer.arm();
 
-    while ( abs( att_est.phi ) <= pi /4.0f && abs( att_est.theta ) <= pi /4.0f && abs 
-    (att_est.p) <= 4.0f*pi && abs( att_est.q) <= 4.0f*pi && abs( att_est.r) <= 4.0f*pi && contador < 500){
+    while (abs( att_est.phi ) <= pi /4.0f && abs( att_est.theta ) <= pi /4.0f && abs 
+    (att_est.p) <= 4.0f*pi && abs( att_est.q) <= 4.0f*pi && abs( att_est.r) <= 4.0f*pi && contador < 1500){
+    
 
         if (flag){
 
