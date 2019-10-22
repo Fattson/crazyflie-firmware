@@ -17,7 +17,7 @@ int main()
     while(true) 
     {
         range.read();
-        serial.printf("Range [m]: %6.2f \n",range.d);
+        serial.printf("Range [m]: %6.2f \n\r",range.d);
         wait(0.1);
     }
 }
