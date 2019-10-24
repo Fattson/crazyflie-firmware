@@ -13,5 +13,7 @@
 #include "modules/leds.h"
 #include "modules/attitude_estimator.hpp"
 #include "modules/attitude_controller.hpp"
+#include "modules/vertical_estimator.hpp"
+#include "modules/vertical_controller.hpp"
 
 #endif

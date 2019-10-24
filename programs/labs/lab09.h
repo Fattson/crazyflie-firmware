@@ -8,22 +8,17 @@
 Mixer mixer;
 AttitudeEstimator att_est;
 AttitudeController att_cont;
-VerticalEstimator vert_est;
 
 // Ticker objects
 Ticker tic;
 
 // Interrupt flag and counter variables
-bool flag, flag_range;
+bool flag;
 
 // Callback functions
 void callback(){
-    flag = true;
+flag = true;
 }
-void callback_range(){
-    flag_range = true;
-}
-
 int contador= 0;
 
 // Main program
@@ -57,12 +52,7 @@ int main (){
 
             // serial.printf("%f \n\r", att_cont.tau_theta);
             contador++;
-        }
-
-        if (flag_range){
-            flag_range = false;
-            
-        }
+            }
             
     }
 

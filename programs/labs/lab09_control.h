@@ -2,16 +2,18 @@
 #include "crazyflie.h"
 #include "USBSerial.h"
 
-// USBSerial serial;
+USBSerial serial;
 
 // Crazyflie controller objects
 Mixer mixer;
 AttitudeEstimator att_est;
 AttitudeController att_cont;
 VerticalEstimator vert_est;
+VerticalController vert_cont;
 
 // Ticker objects
 Ticker tic;
+Ticker tic_range;
 
 // Interrupt flag and counter variables
 bool flag, flag_range;
@@ -30,7 +32,7 @@ int contador= 0;
 int main (){
 
     // Set references
-    float f_t = 1*m*g;
+    float z_r = 1.0f;
     float phi_r = 0.0f;
     float theta_r = 0.0f;
     float psi_r = 0.0f;
@@ -40,6 +42,7 @@ int main (){
 
     // Initialize interrupts
     tic.attach(&callback, dt);
+    tic_range.attach(&callback_range, dt_range);
 
     // Arm motors and run controller while stable
     mixer.arm();
@@ -52,8 +55,10 @@ int main (){
 
             flag = false;
             att_est.estimate();
+            vert_est.predict();
             att_cont.control (phi_r, theta_r, psi_r, att_est.phi, att_est.theta, att_est.psi, att_est.p, att_est.q, att_est.r);
-            mixer.actuate(f_t, 0.0f, att_cont.tau_theta, 0.0f);
+            vert_cont.control(z_r, vert_est.z, vert_est.w);
+            mixer.actuate(vert_cont.f_t, att_cont.tau_phi, att_cont.tau_theta, att_cont.tau_psi);
 
             // serial.printf("%f \n\r", att_cont.tau_theta);
             contador++;
@@ -61,7 +66,8 @@ int main (){
 
         if (flag_range){
             flag_range = false;
-            
+            vert_est.correct(att_est.phi, att_est.theta);      
+            serial.printf("z [m]: %6.2f | w [m/s]: %6.2f\n\r", vert_est.z, vert_est.w);      
         }
             
     }
