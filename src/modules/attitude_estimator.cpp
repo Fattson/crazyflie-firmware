@@ -26,9 +26,9 @@ void AttitudeEstimator::init(){
         r_bias += imu.gz;
         wait(dt); 
     }
-    p_bias = p_bias/500;
-    q_bias = q_bias/500;
-    r_bias = r_bias/500;
+    p_bias = p_bias/500.0;
+    q_bias = q_bias/500.0;
+    r_bias = r_bias/500.0;
 }
 
 void AttitudeEstimator::estimate(){
@@ -41,7 +41,7 @@ void AttitudeEstimator::estimate(){
     r = imu.gz - r_bias;
 
     phi_g = phi + ( p + sin(phi)*tan(theta)*q + cos(phi)*tan(theta)*r )*dt;
-    theta_g = theta + ( cos(theta)*q -sin(theta)*r )*dt;
+    theta_g = theta + ( cos(phi)*q -sin(phi)*r )*dt;
     psi_g = psi + ( (sin(phi)/cos(theta))*q + (cos(phi)/cos(theta))*r )*dt;
 
     // Estimador acelerômetro
@@ -49,8 +49,8 @@ void AttitudeEstimator::estimate(){
     theta_a = atan2(imu.ax, (-sgn(imu.az)*sqrt(pow(imu.ay,2) + pow(imu.az,2))));
 
     // Estimador complementar
-    phi = (1 - alpha)*phi_g + alpha*phi_a;
-    theta = (1 - alpha)*theta_g + alpha*theta_a;
+    phi = (1.0 - alpha)*phi_g + alpha*phi_a;
+    theta = (1.0 - alpha)*theta_g + alpha*theta_a;
     psi = psi_g;
     
 }

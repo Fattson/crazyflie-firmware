@@ -32,7 +32,7 @@ int contador= 0;
 int main (){
 
     // Set references
-    float z_r = 0.1f;
+    float z_r = 0.5f;
     float phi_r = 0.0f;
     float theta_r = 0.0f;
     float psi_r = 0.0f;
@@ -52,22 +52,23 @@ int main (){
     (att_est.p) <= 4.0f*pi && abs( att_est.q) <= 4.0f*pi && abs( att_est.r) <= 4.0f*pi && contador < 1500){
     
 
+
         if (flag){
             flag = false;
             att_est.estimate();
             vert_est.predict();
 
-            if (flag_range){
-                flag_range = false;
-                vert_est.correct(att_est.phi, att_est.theta);
-            }   
+                if (flag_range){
+                    flag_range = false;
+                    vert_est.correct(att_est.phi, att_est.theta);
+                }   
 
-            att_cont.control (phi_r, theta_r, psi_r, att_est.phi, att_est.theta, att_est.psi, att_est.p, att_est.q, att_est.r);
+            att_cont.control(phi_r, theta_r, psi_r, att_est.phi, att_est.theta, att_est.psi, att_est.p, att_est.q, att_est.r);
             vert_cont.control(z_r, vert_est.z, vert_est.w);
-            mixer.actuate(vert_cont.f_t, att_cont.tau_phi, att_cont.tau_theta, att_cont.tau_psi);
+            mixer.actuate(vert_cont.f_t, att_cont.tau_phi, att_cont.tau_theta, 0.0);
 
             // serial.printf("%f \n\r", att_cont.tau_theta);
-            contador++;
+            // contador++;
         } 
             
     }

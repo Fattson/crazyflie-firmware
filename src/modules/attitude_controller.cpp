@@ -21,7 +21,7 @@ void AttitudeController::control(float phi_r, float theta_r, float psi_r, float 
     pl_r = Kd_att*(p_r - p);
     tau_phi = pl_r*I_xx;
 
-    r_r = Kp_att*(psi_r - psi);
-    rl_r = Kd_att*(r_r - r);
+    r_r = Kp_att2*(psi_r - psi);
+    rl_r = Kd_att2*(r_r - r);
     tau_psi = rl_r*I_zz;
 }

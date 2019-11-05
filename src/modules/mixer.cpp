@@ -105,7 +105,7 @@ void Mixer::forces_to_rads(float F_t, float T_Phi, float T_theta, float T_psi){
     float sigma1 = T_theta/(4.0*kl*l);
     float sigma2 = T_Phi/(4.0*kl*l);
     float sigma3 = T_psi/(4.0*kd);
-    float sigma4 = F_t/(4*kl);
+    float sigma4 = F_t/(4.0*kl);
 
     float w1_s = sigma4-sigma3-sigma2-sigma1;
     float w2_s = sigma4+sigma3-sigma2+sigma1;
