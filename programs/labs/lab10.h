@@ -1,6 +1,6 @@
 #include "mbed.h"
 #include "crazyflie.h"
-#include "USBSerial.h"
+//include "USBSerial.h"
 
 // USBSerial serial;
 
@@ -32,7 +32,7 @@ int contador= 0;
 int main (){
 
     // Set references
-    float z_r = 1.0f;
+    float z_r = 0.1f;
     float phi_r = 0.0f;
     float theta_r = 0.0f;
     float psi_r = 0.0f;
@@ -55,17 +55,20 @@ int main (){
         if (flag){
             flag = false;
             att_est.estimate();
+            vert_est.predict();
+
+            if (flag_range){
+                flag_range = false;
+                vert_est.correct(att_est.phi, att_est.theta);
+            }   
+
             att_cont.control (phi_r, theta_r, psi_r, att_est.phi, att_est.theta, att_est.psi, att_est.p, att_est.q, att_est.r);
+            vert_cont.control(z_r, vert_est.z, vert_est.w);
             mixer.actuate(vert_cont.f_t, att_cont.tau_phi, att_cont.tau_theta, att_cont.tau_psi);
 
             // serial.printf("%f \n\r", att_cont.tau_theta);
             contador++;
-        }
-
-        if (flag_range){
-            flag_range = false;
-            vert_est.correct(att_est.phi, att_est.theta);
-        }
+        } 
             
     }
 
