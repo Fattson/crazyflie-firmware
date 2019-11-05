@@ -17,7 +17,7 @@ int main()
     while(true) 
     {
         flow.read();
-        serial.printf("Flow [px]: %6.0f %6.0f \n",flow.px,flow.py);
+        serial.printf("Flow [px]: %6.0f %6.0f \n\r",flow.px,flow.py);
         wait(0.1);
     }
 }

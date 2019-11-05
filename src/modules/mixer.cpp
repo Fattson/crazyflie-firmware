@@ -12,11 +12,6 @@ Mixer::Mixer() : M1(MOTOR1), M2(MOTOR2), M3(MOTOR3), M4(MOTOR4) {
 void Mixer::actuate(float F_t, float T_Phi, float T_theta, float T_psi){
     if(armed){
 
-        M1.period(1.0/500.0);
-        M2.period(1.0/500.0);
-        M3.period(1.0/500.0);
-        M4.period(1.0/500.0);
-
         forces_to_rads(F_t, T_Phi, T_theta, T_psi);
         M1 = control_motor(w1);
         M2 = control_motor(w2);
@@ -34,6 +29,11 @@ void Mixer::arm(){
         leds.start_up();
         leds.armed();
         armed = true;
+
+        M1.period(1.0/500.0);
+        M2.period(1.0/500.0);
+        M3.period(1.0/500.0);
+        M4.period(1.0/500.0);
 
         // M1.period(1.0/1567.98);
         // M1 = 0.1;

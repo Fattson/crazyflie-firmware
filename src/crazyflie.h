@@ -15,5 +15,6 @@
 #include "modules/attitude_controller.hpp"
 #include "modules/vertical_estimator.hpp"
 #include "modules/vertical_controller.hpp"
+#include "modules/horizontal_estimator.hpp"
 
 #endif

@@ -4,7 +4,7 @@
 #include <cmath>
 
 VerticalEstimator::VerticalEstimator()  : range(E_SDA, E_SCL) {
-    z = 0, w = 0, z_m_last = 0;
+    z = 0.0, w = 0.0, z_m_last = 0.0, d = 0.0;
 }
 
 void VerticalEstimator::init() {
@@ -18,13 +18,14 @@ void VerticalEstimator::predict(){
 
 void VerticalEstimator::correct(float phi, float theta){
     range.read();
-    if (range.d <= 2.0)
-    {
-    float z_m = (range.d)*cos(phi)*cos(theta);
-    float w_m = (z_m-z_m_last)/dt_range;
+    d = range.d;
+    
+    if (d <= 2.0) {
+        float z_m = (d)*cos(phi)*cos(theta);
+        float w_m = (z_m-z_m_last)/dt_range;
 
-    z_m_last = z_m;
-    w = w + p1_range*(w_m-w);
-    z = z + p2_range*(z_m-z);
+        z_m_last = z_m;
+        w = w + p1_range*(w_m-w);
+        z = z + p2_range*(z_m-z);
     }
 }

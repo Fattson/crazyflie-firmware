@@ -25,6 +25,7 @@ const float Ts_att = 0.3;
 const float zeta_att = abs(log(OS_att))/(sqrt(pow(log(OS_att), 2) + pow(pi ,2)));
 const float wn_att = 4.0/(zeta_att*Ts_att);
 const float Kp_att = wn_att/(2.0*zeta_att);
+// const float Kp_att = pow(wn_att,2);
 const float Kd_att = 2.0*zeta_att*wn_att;
 
 const float OS_att2 = 0.005;
@@ -32,6 +33,7 @@ const float Ts_att2 = 0.6;
 const float zeta_att2 = abs(log(OS_att2))/(sqrt(pow(log(OS_att2), 2) + pow(pi ,2)));
 const float wn_att2 = 4.0/(zeta_att2*Ts_att2);
 const float Kp_att2 = wn_att2/(2.0*zeta_att2);
+// const float Kp_att2 = pow(wn_att2,2);
 const float Kd_att2 = 2.0*zeta_att2*wn_att2;
 
 const float p1_range = 0.3;
@@ -42,6 +44,12 @@ const float Ts_vert = 2.0;
 const float zeta_vert = abs(log(OS_vert))/(sqrt(pow(log(OS_vert), 2) + pow(pi ,2)));
 const float wn_vert = 4.0/(Ts_vert*zeta_vert);
 const float Kp_vert = wn_vert/(2.0*zeta_vert);
+// const float Kp_vert = pow(wn_vert,2);
 const float Kd_vert = 2.0*zeta_vert*wn_vert;
+
+const float gamma = 42.0f;
+const float W = 420.0f;
+const float sigma = 2.0f*tan(gamma/2.0f)/(W*dt_range);
+const float alpha_flow = 0.3f;
 
 #endif
