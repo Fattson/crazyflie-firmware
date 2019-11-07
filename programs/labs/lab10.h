@@ -21,7 +21,7 @@ Ticker tic_range;
 bool flag, flag_range;
 
 // Set references
-float tfly = 10.0;
+float tfly = 20.0;
 float cont_max = tfly/dt;
 float h_max = 1.0f;
 
@@ -46,7 +46,7 @@ void zr_up(int contador){
 }
 
 void zr_down(int contador){
-    z_r = h_max - (1.2*h_max/1000.0)*((float)contador-cont_max+1000.0);
+    z_r = h_max - (1.4*h_max/1000.0)*((float)contador-cont_max+1000.0);
 }
 
 int contador = 0;
