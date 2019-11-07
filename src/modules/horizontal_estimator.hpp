@@ -12,9 +12,9 @@ class HorizontalEstimator {
 
         void init();
         void predict();
-        void estimate(float p, float q, float d);
+        void correct(float p, float q, float z, float phi, float theta);
 
-        float x, u, y, v;
+        float x, u, y, v, d, px, py;
 
     private:
         PMW3901 flow;

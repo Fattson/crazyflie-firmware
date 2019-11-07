@@ -13,7 +13,7 @@ class VerticalEstimator {
         void predict();
         void correct(float phi, float theta);
 
-        float z, w, d;
+        float z, w;
 
     private:
         VL53L0X range;

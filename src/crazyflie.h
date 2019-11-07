@@ -16,5 +16,6 @@
 #include "modules/vertical_estimator.hpp"
 #include "modules/vertical_controller.hpp"
 #include "modules/horizontal_estimator.hpp"
+#include "modules/horizontal_controller.hpp"
 
 #endif

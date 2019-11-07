@@ -21,7 +21,7 @@ const float dt_range = 50e-3;
 const float alpha = 0.01;            // Fator de suavização filtro 
 
 const float OS_att = 0.005;
-const float Ts_att = 0.3;
+const float Ts_att = 0.1;
 const float zeta_att = abs(log(OS_att))/(sqrt(pow(log(OS_att), 2) + pow(pi ,2)));
 const float wn_att = 4.0/(zeta_att*Ts_att);
 const float Kp_att = wn_att/(2.0*zeta_att);
@@ -47,9 +47,17 @@ const float Kp_vert = wn_vert/(2.0*zeta_vert);
 // const float Kp_vert = pow(wn_vert,2);
 const float Kd_vert = 2.0*zeta_vert*wn_vert;
 
-const float gamma = 42.0f;
+const float gamma = 0.733f;
 const float W = 420.0f;
-const float sigma = 2.0f*tan(gamma/2.0f)/(W*dt_range);
+const float sigma = 2.0f*tan(gamma/2.0f)/(W*dt);
 const float alpha_flow = 0.3f;
+
+const float OS_hor = 0.001;
+const float Ts_hor = 4.0;
+const float zeta_hor = abs(log(OS_hor))/(sqrt(pow(log(OS_hor), 2) + pow(pi ,2)));
+const float wn_hor = 4.0/(Ts_hor*zeta_hor);
+const float Kp_hor = wn_hor/(2.0*zeta_hor);
+// const float Kp_hor = pow(wn_hor,2);
+const float Kd_hor = 2.0*zeta_hor*wn_hor;
 
 #endif
