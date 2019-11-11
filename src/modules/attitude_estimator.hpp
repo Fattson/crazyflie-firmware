@@ -10,9 +10,9 @@ class AttitudeEstimator {
     public:
         AttitudeEstimator();
 
-
         void init();
         void estimate();
+        bool withinSafeLimits();
         int sgn(double v);
 
         float phi, theta, psi;

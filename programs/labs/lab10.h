@@ -66,8 +66,7 @@ int main (){
     // Arm motors and run controller while stable
     mixer.arm();
 
-    while (abs( att_est.phi ) <= pi /4.0f && abs( att_est.theta ) <= pi /4.0f && abs 
-    (att_est.p) <= 4.0f*pi && abs( att_est.q) <= 4.0f*pi && abs( att_est.r) <= 4.0f*pi && contador < cont_max){
+    while (att_est.withinSafeLimits() && contador < cont_max){
         if(contador <= 1000){
             zr_up(contador);
         } else if (contador >= (cont_max-1000.0)){

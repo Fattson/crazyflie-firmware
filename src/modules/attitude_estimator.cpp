@@ -55,4 +55,10 @@ void AttitudeEstimator::estimate(){
     
 }
 
-
+bool AttitudeEstimator::withinSafeLimits(){
+    if(abs(phi) <= pi /4.0f && abs(theta) <= pi /4.0f && abs(p) <= 4.0f*pi && abs(q) <= 4.0f*pi && abs(r) <= 4.0f*pi){
+        return true;
+    } else {
+        return false;
+    }
+}
