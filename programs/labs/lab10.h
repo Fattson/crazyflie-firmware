@@ -21,7 +21,7 @@ Ticker tic_range;
 bool flag, flag_range;
 
 // Set references
-float tfly = 20.0;
+float tfly = 20.0; // sec.
 float cont_max = tfly/dt;
 float h_max = 1.0f;
 
@@ -49,6 +49,26 @@ void zr_down(int contador){
     z_r = h_max - (1.4*h_max/1000.0)*((float)contador-cont_max+1000.0);
 }
 
+void square(int contador, int cont_max){
+    int sub = cont_max/18;
+    if (contador <= 5*sub){
+        x_r = 0.0f;
+        y_r = 0.0f;
+    } else if (contador <= 8*sub){
+        x_r = 2.0f;
+        y_r = 0.0f;
+    } else if (contador <= 11*sub){
+        x_r = 2.0f;
+        y_r = -2.0f;
+    } else if (contador <= 14*sub){
+        x_r = 0.0f;
+        y_r = -2.0f;
+    } else if (contador <= 18*sub){
+        x_r = 0.0f;
+        y_r = 0.0f;
+    }
+}
+
 int contador = 0;
 
 // Main program
@@ -68,6 +88,7 @@ int main (){
 
     while (abs( att_est.phi ) <= pi /4.0f && abs( att_est.theta ) <= pi /4.0f && abs 
     (att_est.p) <= 4.0f*pi && abs( att_est.q) <= 4.0f*pi && abs( att_est.r) <= 4.0f*pi && contador < cont_max){
+
         if(contador <= 1000){
             zr_up(contador);
         } else if (contador >= (cont_max-1000.0)){
@@ -75,6 +96,8 @@ int main (){
         } else {
             z_r = h_max;
         }
+        
+        square(contador, cont_max);
 
         if (flag){
             flag = false;
@@ -88,7 +111,7 @@ int main (){
                 flag_range = false;
                 vert_est.correct(att_est.phi, att_est.theta);
 
-                // serial.printf("%.2f %d\n\r", z_r, contador);
+                //serial.printf("%.2f %.2f %.2f %d\n\r", x_r, y_r, z_r, contador);
                 // serial.printf("Flow [m]: %.2f %.2f | [m/s] %.2f %.2f\n\r", hor_est.x, hor_est.y, hor_est.u, hor_est.v);
                 // serial.printf("PXs %6.0f %6.0f\n\r", hor_est.px, hor_est.py);
                 // serial.printf("D: %.2f\n\r", hor_est.d);
