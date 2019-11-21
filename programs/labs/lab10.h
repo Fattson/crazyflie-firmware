@@ -22,10 +22,10 @@ bool flag, flag_range;
 
 // Set references
 float tfly = 20.0; // sec.
-float t2 = 0.5;
+float t2 = 0.5/dt;
 float cont_max = tfly/dt;
 float h_max = 0.8f;
-float t1 = (cont_max-2000.0)/4.0 - t2/dt;
+float t1 = (cont_max - 2000.0 - 5*t2)/4.0;
 
 float x_r = 0.0f;
 float y_r = 0.0f;
@@ -64,31 +64,31 @@ void z_ref(int contador){
 }
 
 void square(int contador, int cont_max){
-    if (contador <= 1000){
+    if (contador <= (1000+t2)){
         x_r = 0.0f;
         y_r = 0.0f;
-    } else if (contador <= (t1+1000)){
-        x_r = (x_max/t1)*(contador-1000);
-        y_r = 0.0f;
     } else if (contador <= (t1+1000+t2)){
+        x_r = (x_max/t1)*(contador-1000-t2);
+        y_r = 0.0f;
+    } else if (contador <= (t1+1000+2*t2)){
         x_r = x_r;
         y_r = y_r;
-    } else if (contador <= (1000+2*t1+t2)){
-        x_r = x_r;
-        y_r = (-y_max/t1)*(contador-1000-t1-t2);
     } else if (contador <= (1000+2*t1+2*t2)){
         x_r = x_r;
-        y_r = y_r;
-    } else if (contador <= (1000+3*t1+2*t2)){
-        x_r = x_max - (x_max/t1)*(contador-1000-2*t1-2*t2);
+        y_r = (-y_max/t1)*(contador-1000-t1-2*t2);
+    } else if (contador <= (1000+2*t1+3*t2)){
+        x_r = x_r;
         y_r = y_r;
     } else if (contador <= (1000+3*t1+3*t2)){
+        x_r = x_max - (x_max/t1)*(contador-1000-2*t1-3*t2);
+        y_r = y_r;
+    } else if (contador <= (1000+3*t1+4*t2)){
         x_r = x_r;
         y_r = y_r;
-    } else if (contador <= (1000+4*t1+3*t2)){
-        x_r = x_r;
-        y_r = -y_max + (y_max/t1)*(contador-1000-3*t1-3*t2);
     } else if (contador <= (1000+4*t1+4*t2)){
+        x_r = x_r;
+        y_r = -y_max + (y_max/t1)*(contador-1000-3*t1-4*t2);
+    } else if (contador <= (1000+4*t1+5*t2)){
         x_r = 0.0f;
         y_r = 0.0f;
     }
@@ -111,7 +111,7 @@ int main (){
     // Arm motors and run controller while stable
     mixer.arm();
 
-    while (att_est.withinSafeLimits() && contador < cont_max){
+    while (att_est.withinSafeLimits() && (contador < cont_max) && (vert_est.z <= 1.2)){
         z_ref(contador);
         square(contador, cont_max);
 
@@ -141,7 +141,7 @@ int main (){
             hor_cont.control(x_r, hor_est.x, hor_est.u, y_r, hor_est.y, hor_est.v);
             att_cont.control(hor_cont.phi_r, hor_cont.theta_r, psi_r, att_est.phi, att_est.theta, att_est.psi, att_est.p, att_est.q, att_est.r);
             //att_cont.control(phi_r, theta_r, psi_r, att_est.phi, att_est.theta, att_est.psi, att_est.p, att_est.q, att_est.r);
-            //mixer.actuate(vert_cont.f_t/(cos(att_est.phi)*cos(att_est.theta)), att_cont.tau_phi, att_cont.tau_theta, att_cont.tau_psi);
+            // mixer.actuate(vert_cont.f_t/(cos(att_est.phi)*cos(att_est.theta)), att_cont.tau_phi, att_cont.tau_theta, att_cont.tau_psi);
 
             contador++;
         } 
